@@ -62,6 +62,7 @@ function love.draw()
 	love.graphics.scale(0.5, 0.5)
 	local tileset = map.tilesets[1]
 	for layer = 1, math.max(#map.tilelayers, #map.objlayers), 1 do
+
 		for y = 1, map.height, 1 do
             for x = 1, map.width, 1 do
 
@@ -78,18 +79,24 @@ function love.draw()
 				end
 			end
 		end
+
 		if(map.objlayers[layer] ~= nil) then
 			for _, sprite in ipairs(map.objlayers[layer].sprites) do
-				local x = (sprite.x)/sprite.width + 1
-				local y = (sprite.y)/sprite.height + 1
-				print(x, y)
+				local x = (sprite.x)/sprite.width + 3 --why?
+				local y = (sprite.y)/sprite.height + 2 --why?
 				local sw = map.tilewidth
                 local sh = map.tileheight
-                local spritex = (x - y) * sw/2 + 1000
-                local spritey = (x + y) * sh/2 + map.objlayers[layer].z
-                love.graphics.draw(sprite.image, sprite.frames[1], spritex, spritey)
+                local sox = sprite.properties.offsetx
+                local soy = sprite.properties.offsety
+                local spx = (x - y) * sw/2 + 1000
+                local spy = (x + y) * sh/2 + map.objlayers[layer].z
+                love.graphics.draw(sprite.image, sprite.frames[1], spx, spy, 0, 1, 1, sox, soy)
+                --love.graphics.setColor(1,0,0)
+                --love.graphics.circle("fill", spritex, spritey, 5, 10)
+                --love.graphics.setColor(1,1,1)
 			end
 		end
+
 	end
 end
 
