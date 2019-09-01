@@ -70,18 +70,19 @@ function love.draw()
 
                 local tilex = (x - y) * tw/2 + 1000
                 local tiley = (x + y) * th/2 + map.tilelayers[layer].z
-                local tilei = (x + (y - 1) * map.height)
+                local tilei = (x + (y -1) * map.height)
 				local tile_type = map.tilelayers[layer].data[tilei]
 
 				if tile_type > 0 then
-					--love.graphics.draw(tileset.image, tileset.tiles[tile_type], tilex, tiley)               
+					love.graphics.draw(tileset.image, tileset.tiles[tile_type], tilex, tiley)               
 				end
 			end
 		end
 		if(map.objlayers[layer] ~= nil) then
 			for _, sprite in ipairs(map.objlayers[layer].sprites) do
-				local x = sprite.x
-				local y = sprite.y
+				local x = (sprite.x)/sprite.width + 1
+				local y = (sprite.y)/sprite.height + 1
+				print(x, y)
 				local sw = map.tilewidth
                 local sh = map.tileheight
                 local spritex = (x - y) * sw/2 + 1000

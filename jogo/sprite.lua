@@ -5,11 +5,12 @@ sprite.__index = sprite
 function sprite:create_frames()
   self.frames = {}
   local image = self.image
-  local width  = self.width
-  local height = self.height
+  local width  = image:getWidth()/self.properties.columns
+  local height = image:getHeight()/self.properties.rows
 
-  for y = 0, image:getHeight() - height, height do
-    for x = 0, image:getWidth() - width, width do
+
+  for y = 0, image:getHeight(), height do
+    for x = 0, image:getWidth(), width do
       table.insert(self.frames, love.graphics.newQuad(x, y, width, height, image:getDimensions()))
     end
   end
