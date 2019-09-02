@@ -5,9 +5,8 @@ local camera = require "camera"
 local map = {}
 
 function map:scan_group(layer)
-	local z = 1+((self.tileheight - layer.offsety)/self.tileheight)
+	local z = 1+(#self.tilelayers)
 	self.spritelayers[z] = {sprites = {}}
-	self.spritelayers[z].z = layer.offsety
 
 	for _, obj in pairs(layer.objects) do
 		if(obj.type == "sprite") then
@@ -20,6 +19,8 @@ function map:scan_group(layer)
 		end
 
 	end
+
+	for i,j in pairs(self.spritelayers) do print(i,j) end
 end
 
 function map:setup(info)
@@ -30,7 +31,10 @@ function map:setup(info)
 	self.tileheight = info.tileheight
 	self.nextlayerid = info.nextlayerid
 	self.nextobjectid = info.nextobjectid
-	self.backgroundcolor = info.backgroundcolor
+	local r = info.backgroundcolor[1]/255
+	local g = info.backgroundcolor[2]/255
+	local b = info.backgroundcolor[3]/255
+	self.backgroundcolor = {r, g, b}
 
 	--Tileset
 	self.tilesets = {}
@@ -45,7 +49,7 @@ function map:setup(info)
 
 	for _,layer in pairs(info.layers) do
 		if(layer.type == "tilelayer") then
-			local z = 1+((self.tileheight - layer.offsety)/self.tileheight)
+			local z = 1+(#self.tilelayers)
 			self.tilelayers[z] = tl_creator:new(layer)
 		end
 		if(layer.type == "objectgroup") then self:scan_group(layer) end
@@ -54,11 +58,9 @@ function map:setup(info)
 end
 
 function map:update(dt)
-	for layer = 1, #self.spritelayers, 1 do
-		if(map.spritelayers[layer] ~= nil) then
-			for _, sprite in ipairs(map.spritelayers[layer].sprites) do
-				sprite:process_animation(dt)
-			end
+	for _,splayer in pairs(self.spritelayers) do
+		for _, sprite in pairs(splayer.sprites) do
+			sprite:process_animation(dt)
 		end
 	end
 	camera:update(dt, map.tilewidth, map.tileheight)
