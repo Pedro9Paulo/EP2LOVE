@@ -17,20 +17,20 @@ function tileset:create_tiles()
 end
 
 --Cria uma nova instancia de tileset
-function tileset:new(tileset)
+function tileset:new(tileset_info)
   local tileset_instance = {}
   setmetatable(tileset_instance, self)
 
-  tileset_instance.name       = tileset.name
-  tileset_instance.tilewidth  = tileset.tilewidth
-  tileset_instance.tileheight = tileset.tileheight
-  tileset_instance.spacing    = tileset.spacing
-  tileset_instance.margin     = tileset.margin
-  tileset_instance.columns    = tileset.columns
-  tileset_instance.image      = love.graphics.newImage("tilesheets/"..tileset.image)
-  tileset_instance.imagewidth = tileset.imagewidth
-  tileset_instance.imageheight = tileset.imageheight
-  tileset_instance.tileoffset = tileset.tileoffset
+  tileset_instance.name       = tileset_info.name
+  tileset_instance.tilewidth  = tileset_info.tilewidth
+  tileset_instance.tileheight = tileset_info.tileheight
+  tileset_instance.spacing    = tileset_info.spacing
+  tileset_instance.margin     = tileset_info.margin
+  tileset_instance.columns    = tileset_info.columns
+  tileset_instance.image      = love.graphics.newImage("tilesheets/"..tileset_info.image)
+  tileset_instance.imagewidth = tileset_info.imagewidth
+  tileset_instance.imageheight = tileset_info.imageheight
+  tileset_instance.tileoffset = tileset_info.tileoffset
 
   tileset_instance:create_tiles()
 
