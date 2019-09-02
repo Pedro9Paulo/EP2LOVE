@@ -57,6 +57,16 @@ function map:setup(info)
 
 end
 
+function love.update(dt)
+	for layer = 1, math.max(#map.tilelayers, #map.objlayers), 1 do
+		if(map.objlayers[layer] ~= nil) then
+			for _, sprite in ipairs(map.objlayers[layer].sprites) do
+				sprite:process_animation(dt)
+			end
+		end
+	end
+end
+
 function love.draw()
 	love.graphics.setBackgroundColor(map.backgroundcolor)
 	love.graphics.scale(0.5, 0.5)
@@ -90,10 +100,8 @@ function love.draw()
                 local soy = sprite.properties.offsety
                 local spx = (x - y) * sw/2 + 1000
                 local spy = (x + y) * sh/2 + map.objlayers[layer].z
-                love.graphics.draw(sprite.image, sprite.frames[1], spx, spy, 0, 1, 1, sox, soy)
-                --love.graphics.setColor(1,0,0)
-                --love.graphics.circle("fill", spritex, spritey, 5, 10)
-                --love.graphics.setColor(1,1,1)
+                local sframe = sprite.properties.frames[sprite.cur_frame]
+                love.graphics.draw(sprite.image, sprite.frames[sframe], spx, spy, 0, 1, 1, sox, soy)
 			end
 		end
 

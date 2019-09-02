@@ -7,7 +7,3 @@ function love.load(path)
 	local map_info = chunk()
 	map:setup(map_info)
 end
-
-function love.update(dt)
-
-end
