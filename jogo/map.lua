@@ -67,6 +67,7 @@ function map:update(dt)
 end
 
 function map:draw()
+	love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setBackgroundColor(self.backgroundcolor)
 	camera:set()
 
