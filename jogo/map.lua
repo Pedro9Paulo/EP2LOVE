@@ -20,7 +20,6 @@ function map:scan_group(layer)
 
 	end
 
-	for i,j in pairs(self.spritelayers) do print(i,j) end
 end
 
 function map:setup(info)

@@ -39,8 +39,8 @@ function camera:update(dt)
 
 	if progress > 1 then progress = 1 end
 
-	self.x = self.points[next_point].x*progress + self.points[self.move.cur_point].x*(1-progress)
-	self.y = self.points[next_point].y*progress + self.points[self.move.cur_point].y*(1-progress)
+	self.x = math.floor(self.points[next_point].x*progress + self.points[self.move.cur_point].x*(1-progress))
+	self.y = math.floor(self.points[next_point].y*progress + self.points[self.move.cur_point].y*(1-progress))
 
 	if progress == 1 then
 		self.move.cur_point = next_point
